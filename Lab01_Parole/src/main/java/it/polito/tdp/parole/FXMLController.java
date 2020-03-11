@@ -27,6 +27,9 @@ public class FXMLController {
     private Button btnInserisci;
 
     @FXML
+    private TextArea txtTime;
+    
+    @FXML
     private TextArea txtResult;
 
     @FXML
@@ -35,11 +38,46 @@ public class FXMLController {
     @FXML
     void doInsert(ActionEvent event) {
     	// TODO
+    	double start = System.nanoTime();
+    	
+    	this.txtResult.clear();
+    	String parola= this.txtParola.getText();
+    	elenco.addParola(parola);
+    	this.txtParola.clear();
+    	
+    	for(String s: elenco.getElenco()) {
+    	this.txtResult.appendText(s+"\n");
+    	}
+    	
+    	double end = System.nanoTime();
+    	this.txtTime.appendText(Integer.toString( (int) (end-start))+"\n");
     }
 
     @FXML
     void doReset(ActionEvent event) {
     	// TODO
+    	
+    	double start = System.nanoTime();
+    	elenco.reset();
+    	this.txtResult.clear();
+    	double end = System.nanoTime();
+    	this.txtTime.appendText(Integer.toString( (int) (end-start)) +"\n");
+    }
+    
+    @FXML
+    void DeleteParola(ActionEvent event) {
+    	double start = System.nanoTime();
+    	
+    	String parola= this.txtResult.getSelectedText();
+    	this.txtResult.clear();
+    	elenco.elimina(parola);
+    	
+    	for(String s: elenco.getElenco()) {
+        	this.txtResult.appendText(s+"\n");
+        	}
+    	
+    	double end = System.nanoTime();
+    	this.txtTime.appendText(Integer.toString( (int) (end-start))+"\n");
     }
 
     @FXML
